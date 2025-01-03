@@ -1,0 +1,23 @@
+.container-popup{
+    width: auto;
+    height: auto;
+    padding: 15px;
+    background-color: #0c7d69;
+    border-radius: 8px;
+    color: white;
+    top: 0px;
+}
+.popup{
+    height: 55px;
+}
+
+@media (max-width: 768px) {
+    .container-popup{
+        width: 270px;
+        padding-bottom: 30px;
+    }
+    .popup{
+        height: 65px;
+        padding-bottom: 25px;
+    }
+}
