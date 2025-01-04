@@ -77,6 +77,7 @@ const Form = ({setSubmit}:FormProps) => {
         </label>
         <input
           type="text"
+          id="email"
           className={`email ${errors.email? "email-error":""}`}
           
           {...register("email", {
@@ -98,13 +99,16 @@ const Form = ({setSubmit}:FormProps) => {
           <div className={`radio ${errors.radio ? "error-radio" : ""}`}>
             <input
               type="radio"
+              id="quiry"
               {...register("radio", { required: "Please select a query type" })}
             />
             <p>General Enquiry</p>
           </div>
+          <label htmlFor="Enquiry"></label>
           <div className={`radio ${errors.radio ? "error-radio" : ""}`}>
             <input
               type="radio"
+              id="Enquiry"
               {...register("radio", { required: "Please select a query type" })}
             />
             <p>Support Request</p>
@@ -117,6 +121,7 @@ const Form = ({setSubmit}:FormProps) => {
       <div className="message-label ">
         <label htmlFor="text">Message<span className="star">*</span></label>
         <textarea
+        id="text"
           {...register("message", { required: "This field is required" })}
           className={`message ${errors.message? "error-message":""}`}
         ></textarea>
@@ -126,12 +131,13 @@ const Form = ({setSubmit}:FormProps) => {
       {/* section checkbox */}
       <div >
         <div className="checkbox">
+          <label htmlFor="checkbox" >I consent to being contacted by the team<span className="star">*</span></label>
           <input
             type="checkbox"
             id="checkbox"
             {...register("checkbox", { required: "To submit this form, please consent to being contacted" })}
           />
-          <p className="paragharph ">I consent to being contacted by the team<span className="star">*</span></p>
+          
         </div>
         {errors.checkbox && <p className="errors">{errors.checkbox.message}</p>}
       </div>

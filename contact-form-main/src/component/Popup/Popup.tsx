@@ -9,7 +9,7 @@ const Popup = ({ submit }: PopupProps) => {
       {submit && (
         <div className="container-popup">
          <strong>Message Sent!</strong>
-         <p><img className="success-icon" src="/images/icon-success-check.svg" alt="icon-checkbox-check" />Thanks for completing the form. We'll be in touch soon!</p>
+         <p><img className="success-icon" src="/images/icon-success-check.svg" alt="check icon" />Thanks for completing the form. We'll be in touch soon!</p>
         </div>
       )}
     </div>,
