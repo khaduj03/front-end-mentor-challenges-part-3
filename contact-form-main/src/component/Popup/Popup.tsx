@@ -14,7 +14,7 @@ const Popup = ({ submit }: PopupProps) => {
       )}
     </div>,
     //useing portal for handling popup in boday html
-    document.querySelector("#popup" )
+    document.querySelector("#popup" )!
   );
 };
 
