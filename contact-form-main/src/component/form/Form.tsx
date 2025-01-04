@@ -48,7 +48,7 @@ const Form = ({setSubmit}:FormProps) => {
       <div className=" section-name-lastName">
           {/* section name */}
           <div className="div-name-lastname">
-              <label htmlFor="firstName">First Name</label>
+              <label htmlFor="firstName">First Name <span className="star">*</span></label>
               <input
                   type="text"
                   id="firstName"
@@ -59,7 +59,7 @@ const Form = ({setSubmit}:FormProps) => {
           </div>
           {/* section last name */}
           <div className="div-name-lastname">
-              <label htmlFor="lastName">Last Name</label>
+              <label htmlFor="lastName">Last Name<span className="star">*</span></label>
               <input
                   type="text"
                   id="lastName"
@@ -73,7 +73,7 @@ const Form = ({setSubmit}:FormProps) => {
       {/* section email */}
       <div className="feileds">
         <label htmlFor="email" className="email-label">
-        Email Address
+        Email Address<span className="star">*</span>
         </label>
         <input
           type="text"
@@ -93,7 +93,7 @@ const Form = ({setSubmit}:FormProps) => {
 
      {/* section Query Type */}
       <div className="feileds">
-        <label htmlFor="quiry">Query Type</label>
+        <label htmlFor="quiry">Query Type<span className="star">*</span></label>
         <div className="quiry">
           <div className={`radio ${errors.radio ? "error-radio" : ""}`}>
             <input
@@ -115,7 +115,7 @@ const Form = ({setSubmit}:FormProps) => {
 
       {/* section Message */}
       <div className="message-label ">
-        <label htmlFor="text">Message</label>
+        <label htmlFor="text">Message<span className="star">*</span></label>
         <textarea
           {...register("message", { required: "This field is required" })}
           className={`message ${errors.message? "error-message":""}`}
@@ -131,7 +131,7 @@ const Form = ({setSubmit}:FormProps) => {
             id="checkbox"
             {...register("checkbox", { required: "To submit this form, please consent to being contacted" })}
           />
-          <p>I consent to being contacted by the team</p>
+          <p className="paragharph ">I consent to being contacted by the team<span className="star">*</span></p>
         </div>
         {errors.checkbox && <p className="errors">{errors.checkbox.message}</p>}
       </div>

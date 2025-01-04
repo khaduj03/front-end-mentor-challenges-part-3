@@ -10,3 +10,16 @@ body{
     align-items: center;
     padding: 10px;
 }
+
+/* src/styles/fonts.css */
+@font-face {
+    font-family: 'Karla';
+    src: url('/src/assets/fonts/Karla-VariableFont_wght.ttf') format('truetype');
+    font-style: italic;
+    font-weight: 100 900; /* Variable font weight range */
+}
+
+body {
+    font-family: 'Karla', sans-serif;
+}
+
