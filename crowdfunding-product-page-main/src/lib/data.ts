@@ -1,9 +1,9 @@
-type PledgeData = {
+export type PledgeData = {
     title: string;
     description: string;
     reward: string | null;
     pledgeAmount: string | null;
-    available: number | null;
+    available: number|null ;
 }
 
 export const pledges: PledgeData[] = [
@@ -33,6 +33,7 @@ export const pledges: PledgeData[] = [
         description: "You get two Special Edition Mahogany stands, a Backer T-Shirt, and a personal thank you. You’ll be added to our Backer member list. Shipping is included.",
         reward: "Two Mahogany Special Edition Stands and Backer T-Shirt",
         pledgeAmount: "$200",
-        available: 2
+        available: 0
     }
 ]
+

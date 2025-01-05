@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { pledges } from "../../lib/data";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import AnimatedPledges from "../Animations/AnimatedPledges";
 import AnimatedModal from "../Animations/AnimatedModal";
+import Button from "../Button";
+import { Counter } from "../useCount";
+import ThankModal from "./ThankModal";
 
 interface ModalProps {
   isOpen: boolean;
@@ -13,34 +16,50 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   const [selectedPledge, setSelectedPledge] = useState<string | null>(null);
   const [value, setValue] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const [isRewardded,setIsRewarded]=useState<boolean>(false)
+  const context = useContext(Counter);
+
+  if (!context) {
+    return null; // اگر `context` مقدار `undefined` بود
+  }
+
+  const { setTotal ,setBackers} = context;
+
   if (!isOpen) return null;
 
   const handlePledgeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedPledge(event.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
 
   const handleClick = (value: string) => {
-    if (selectedPledge !== null) {
+    if (selectedPledge !== null && selectedPledge !== undefined) {
       const numericValue = parseFloat(value);
       if (isNaN(numericValue) || numericValue < 0) {
         setError("Please enter a valid number.");
-        
       } else {
+        setTotal((prev) => prev + numericValue);
+        setBackers((prev)=>prev + 1)
+        setIsRewarded(true)
         setError("");
-        setValue("")
+        setValue("");
         console.log("Pledge submitted:", numericValue);
       }
     }
   };
 
+
+  const handleClose=()=>{
+    setIsRewarded(false)
+    onClose()
+  }
+  
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <>
+    {!isRewardded?(<div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <AnimatePresence>
-        <AnimatedModal>
+        <AnimatedModal className="bg-white overflow-y-auto h-[30rem] flex items-start flex-col p-6 rounded-lg shadow-lg max-w-3xl w-full">
           <h2 className="text-2xl font-bold py-4">Back this project</h2>
           <p className="text-gray-400">
             Want to support us in bringing Mastercraft Bamboo Monitor Riser out
@@ -56,6 +75,10 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                   selectedPledge === index.toString()
                     ? "border-emeraldLight"
                     : "border-gray-400"
+                } ${
+                  item.available === null || item.available > 0
+                    ? "border-emeraldLight"
+                    : "border-gray-400"
                 }`}
               >
                 <div className="flex flex-row items-start justify-between">
@@ -67,20 +90,34 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                       name="pledge"
                       checked={selectedPledge === index.toString()}
                       onChange={handlePledgeChange}
-                      className="peer cursor-pointer w-5 h-5 appearance-none border border-gray-400 rounded-full checked:bg-emeraldLight checked:border-emeraldLight"
+                      className="peer cursor-pointer w-5 h-5 appearance-none border border-gray-400 rounded-full 
+                      checked:bg-emeraldLight checked:border-emeraldLight
+                      disabled:bg-gray-300 disabled:cursor-not-allowed"
+                      disabled={item.available !== null && item.available <= 0}
                     />
+
                     <label
                       htmlFor={`pledge-${index}`}
                       className={`font-semibold text-lg ${
                         selectedPledge === index.toString()
                           ? "text-emeraldLight"
-                          : "text-gray-500"
+                          : "text-gray-600"
+                      } ${
+                        item.available !== null && item.available <= 0
+                          ? "text-gray-300"
+                          : "text-emeraldLight"
                       }`}
                     >
                       {item.title}
                     </label>
                     <span>
-                      <p className="text-emeraldLight font-semibold ">
+                      <p
+                        className={`font-semibold ${
+                          item.available !== null && item.available <= 0
+                            ? "text-gray-300 "
+                            : " text-emeraldLight"
+                        }`}
+                      >
                         {item.pledgeAmount
                           ? `Pledge ${item.pledgeAmount} or more`
                           : ""}
@@ -89,13 +126,25 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                   </div>
                   <p className="text-gray-400 text-lg">
                     {" "}
-                    <span className="text-xl font-bold mr-3 text-black">
+                    <span
+                      className={`text-xl font-bold mr-3  ${
+                        item.available !== null && item.available <= 0
+                          ? "text-gray-400"
+                          : " text-black"
+                      }`}
+                    >
                       {item.available ? item.available : ""}
                     </span>
                     {item.available ? `left` : ""}{" "}
                   </p>
                 </div>
-                <p className="mt-4  text-start pb-10 text-gray-500">
+                <p
+                  className={`mt-4  text-start pb-10  ${
+                    item.available !== null && item.available <= 0
+                      ? "text-gray-300"
+                      : " text-gray-600"
+                  }`}
+                >
                   {item.description}
                 </p>
 
@@ -108,7 +157,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                       Enter your pledge
                       <div className="flex flex-col">
                         <input
-                        value={value}
+                          value={value}
                           placeholder="$ 0.00"
                           onChange={(e) => {
                             setValue(e.target.value);
@@ -120,32 +169,38 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                           id="pledge"
                         />
                         <p className="text-red-300 text-xs">
-                          {error ?error :""}
+                          {error ? error : ""}
                         </p>
                       </div>
-                      <motion.button
-                        type="submit"
+                      <Button
+                        isHoverable={
+                          item.available !== null && item.available <= 0
+                        }
                         onClick={() => handleClick(value)}
-                        whileHover={{ scale: 0.95 }}
+                        name=" Continue"
                         className="px-8 py-3 text-ms font-semibold text-white bg-emeraldLight hover:bg-emeraldDark rounded-[2rem] flex justify-center items-center transition-colors duration-200  "
-                      >
-                        Continue
-                      </motion.button>
+                      />
                     </label>
                   </AnimatedPledges>
                 )}
               </form>
             ))}
-
-          <button
+          <Button
+            isHoverable={true}
+            name=" Close"
             onClick={onClose}
             className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-          >
-            Close
-          </button>
+          />
         </AnimatedModal>
       </AnimatePresence>
-    </div>
+    </div>):(
+      <div  className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <AnimatePresence>
+          <ThankModal close={handleClose}/>
+        </AnimatePresence>
+      </div>
+    )}
+    </>
   );
 };
 

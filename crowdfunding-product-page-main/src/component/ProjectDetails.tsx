@@ -1,10 +1,9 @@
-import { PledgeTiers, ProductDescription } from "./PledgeCard";
+import { ProductDescription } from "./ProductDescription";
 
 export const ProjectDetails = () => {
     return (
-      <div>
+      <div className="flex flex-col justify-center items-center">
         <ProductDescription />
-        <PledgeTiers />
       </div>
     );
   };

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
 import AnimatedBookMark from "./Animations/AnimatedBookMark";
+import Button from "./Button";
 interface Cliked {
   setIsCliked: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -8,7 +8,6 @@ export default function MonitorRiserCard({ setIsCliked }: Cliked) {
   const [isMarked, setIsmarked] = useState<boolean>(false);
 
   const handleClick = () => {
-    console.log("cliked");
     setIsCliked(true);
   };
 
@@ -30,13 +29,12 @@ export default function MonitorRiserCard({ setIsCliked }: Cliked) {
           A beautiful & handcrafted monitor stand to reduce neck and eye strain.
         </p>
         <div className="flex flex-row justify-between">
-          <motion.button
-            whileHover={{ scale: 0.95 }}
-            className="px-7 py- text-ms font-semibold text-white bg-emeraldLight hover:bg-emeraldDark rounded-[2rem] flex justify-center items-center transition-colors duration-200  "
+          <Button
+            isHoverable={true}
+            name=" Back this Project"
             onClick={handleClick}
-          >
-            Back this Project
-          </motion.button>
+            className="px-7 py-3 text-ms font-semibold text-white bg-emeraldLight hover:bg-emeraldDark rounded-[2rem] flex justify-center items-center transition-colors duration-200  "
+          />
           <AnimatedBookMark
             isMarked={isMarked}
             handleClickIsMarked={handleClickIsMarked}
