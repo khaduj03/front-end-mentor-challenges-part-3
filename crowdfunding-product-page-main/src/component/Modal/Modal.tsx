@@ -6,29 +6,33 @@ import AnimatedModal from "../Animations/AnimatedModal";
 import Button from "../Button";
 import { Counter } from "../useCount";
 import ThankModal from "./ThankModal";
+import { useHandleModal } from "../useHandleModal";
 
-interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+const Modal = () => {
   const [selectedPledge, setSelectedPledge] = useState<string | null>(null);
   const [value, setValue] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [isRewardded,setIsRewarded]=useState<boolean>(false)
   const context = useContext(Counter);
+  const contextHandler=useContext(useHandleModal)
+
+  if(!contextHandler){
+    return null
+  }
+  const {isModalOpen , closeModal}=contextHandler
 
   if (!context) {
-    return null; // اگر `context` مقدار `undefined` بود
+    return null; 
   }
 
   const { setTotal ,setBackers} = context;
 
-  if (!isOpen) return null;
+  if (!isModalOpen) return null;
 
   const handlePledgeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedPledge(event.target.value);
+    setError(""); 
+    setValue("")
   };
 
 
@@ -37,6 +41,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
       const numericValue = parseFloat(value);
       if (isNaN(numericValue) || numericValue < 0) {
         setError("Please enter a valid number.");
+        setValue("")
       } else {
         setTotal((prev) => prev + numericValue);
         setBackers((prev)=>prev + 1)
@@ -51,7 +56,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
 
   const handleClose=()=>{
     setIsRewarded(false)
-    onClose()
+    closeModal()
   }
   
 
@@ -68,9 +73,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
 
           {pledges &&
             pledges.map((item, index) => (
-              <form
+              <div
                 key={index}
-                onSubmit={(e) => handleSubmit(e)}
                 className={`border  rounded-lg p-7 w-full mt-4 ${
                   selectedPledge === index.toString()
                     ? "border-emeraldLight"
@@ -158,7 +162,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                       <div className="flex flex-col">
                         <input
                           value={value}
-                          placeholder="$ 0.00"
+                          placeholder={`${item.pledgeAmount!==null?item.pledgeAmount:"$0.00"}`}
                           onChange={(e) => {
                             setValue(e.target.value);
                           }}
@@ -183,12 +187,12 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                     </label>
                   </AnimatedPledges>
                 )}
-              </form>
+              </div>
             ))}
           <Button
             isHoverable={true}
             name=" Close"
-            onClick={onClose}
+            onClick={closeModal}
             className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
           />
         </AnimatedModal>

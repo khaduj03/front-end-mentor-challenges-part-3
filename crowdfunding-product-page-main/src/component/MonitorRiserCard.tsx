@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import AnimatedBookMark from "./Animations/AnimatedBookMark";
 import Button from "./Button";
-interface Cliked {
-  setIsCliked: React.Dispatch<React.SetStateAction<boolean>>;
-}
-export default function MonitorRiserCard({ setIsCliked }: Cliked) {
+import { useHandleModal } from "./useHandleModal";
+
+export default function MonitorRiserCard() {
   const [isMarked, setIsmarked] = useState<boolean>(false);
+  const context=useContext(useHandleModal)
+  if(!context){
+    return null
+  }
+  const {openModal}=context;
 
   const handleClick = () => {
-    setIsCliked(true);
+    openModal()
   };
 
   const handleClickIsMarked = () => {

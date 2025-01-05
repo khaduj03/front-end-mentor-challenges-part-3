@@ -9,6 +9,7 @@ module.exports = {
       colors:{
         emeraldLight:"#3cb4ac",
         emeraldDark: "#2a8f87", 
+        grayLight:"#f2f2f2",
       }
     },
   },

@@ -59,7 +59,7 @@ export default function AnimatedBookMark({
         <g fill="none" fill-rule="evenodd">
           <circle fill="#2F2F2F" cx="26" cy="26" r="24" />
           <path
-            fill={`${isMarked ? "#fff" : "#3cb4ac"}`}
+            fill={`${isMarked ? "#fff" : "#E5E7EB"}`}
             d="M23 19v18l5-5.058L33 37V19z"
           />
         </g>

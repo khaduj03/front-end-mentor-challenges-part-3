@@ -1,12 +1,15 @@
 import { useContext } from "react";
 import { Counter } from "./useCount";
-
+import {AnimatePresence, motion} from "framer-motion"
 export default function FundingTracker() {
   const context = useContext(Counter);
   if (!context) {
     return null; 
   }
   const { total ,backers} = context;
+
+  const maxTotal = 120000; 
+  const widthPercentage = (total / maxTotal) * 100;
 
   return (
     <section className=" w-[44rem] space-y-10 relative bottom-20 flex flex-col  bg-white  px-16  p-10  rounded-lg">
@@ -25,8 +28,14 @@ export default function FundingTracker() {
         </div>
       </div>
       <div>
-        <div className="bg-gray-300 w-full relative h-4 rounded-lg">
-          <div className="absolute inset-0 bg-emeraldLight w-1/2 rounded-lg"></div>
+        <div  style={{width:"100%"}} className={`bg-gray-300 relative h-4 rounded-lg`}>
+          <AnimatePresence>
+          <motion.div
+          initial={{width:0}}
+          animate={{width:`${Math.min(widthPercentage, 100)}%`}}
+          transition={{delay:0.67,duration:1.5,ease: "linear"}}
+           className={`absolute inset-0 bg-emeraldLight   rounded-lg`}></motion.div>
+           </AnimatePresence>
         </div>
       </div>
     </section>
