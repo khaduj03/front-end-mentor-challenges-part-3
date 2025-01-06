@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import AnimatedBookMark from "./Animations/AnimatedBookMark";
-import Button from "./Button";
-import { useHandleModal } from "./useHandleModal";
+import Button from "./Animations/Button";
+import { useHandleModal } from "../hooks/useHandleModal";
 
 export default function MonitorRiserCard() {
   const [isMarked, setIsmarked] = useState<boolean>(false);

@@ -1,5 +1,5 @@
 import AnimatedModal from '../Animations/AnimatedModal';
-import Button from '../Button'
+import Button from '../Animations/Button'
 
 interface TypeChildren{
     close:()=>void;

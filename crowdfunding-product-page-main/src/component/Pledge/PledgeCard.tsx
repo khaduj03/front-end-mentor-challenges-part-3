@@ -1,9 +1,10 @@
-import { PledgeData } from "../lib/data";
-import Button from "./Button";
+import { PledgeData } from "../../lib/data";
+import Button from "../Animations/Button";
 import { useContext } from "react";
-import { useHandleModal } from "./useHandleModal";
+import { useHandleModal } from "../../hooks/useHandleModal";
 
 export const PledgeCard = ({
+  id,
   title,
   pledgeAmount,
   description,
@@ -14,7 +15,7 @@ export const PledgeCard = ({
   if (!contextHandler) {
     return null;
   }
-  const { openModal } = contextHandler;
+  const { handleOpen } = contextHandler;
   return (
     <>
       {available !== null && (
@@ -60,9 +61,9 @@ export const PledgeCard = ({
               </p>
               <Button
                 isHoverable={available > 0}
-                onClick={openModal}
+                onClick={() => handleOpen(id)}
                 name="Select Reward"
-                className={`mt-4 px-6 py-2   rounded-full ${
+                className={`mt-4 px-7 py-3   rounded-full ${
                   available === null || available > 0
                     ? "bg-emeraldLight text-white  hover:bg-emeraldDark"
                     : "bg-gray-300 text-gray-600 cursor-not-allowed"

@@ -1,7 +1,8 @@
-import { PledgeTiers } from "./PledgeTiers";
+import { PledgeTiers } from "./Pledge/PledgeTiers";
 
 export const ProductDescription = () => {
     return (
+      <div className="flex flex-col justify-center items-center">
       <div className="bg-white w-[44rem] p-10 bottom-20 relative rounded-lg">
         <h2 className="text-3xl font-extrabold text-start py-4">About this project</h2>
         <p className="text-start text-gray-500 py-2">
@@ -11,6 +12,7 @@ export const ProductDescription = () => {
           Featuring artisan craftsmanship, the simplicity of design creates extra desk space below your computer to allow notepads, pens, and USB sticks to be stored under the stand.
         </p>
         <PledgeTiers />
+      </div>
       </div>
 
     );
