@@ -14,7 +14,7 @@ function App() {
       <Header />
 
       <HandlerProvider>
-      <main className="px-12 pb-32 flex flex-col space-y-6 justify-center items-center bg-grayLight">
+      <main className="md:px-12 px-5 pb-32 flex flex-col space-y-6 justify-center items-center bg-grayLight">
         <MonitorRiserCard  />
         <FundingTracker />
         <ProductDescription />
@@ -22,7 +22,7 @@ function App() {
       <div className="p-4">
         <Modal/>
       </div>
-      </HandlerProvider>
+      </HandlerProvider> 
 
     </div>
   );

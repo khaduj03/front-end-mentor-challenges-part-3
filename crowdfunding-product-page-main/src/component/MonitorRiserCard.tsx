@@ -11,16 +11,19 @@ export default function MonitorRiserCard() {
   }
   const {openModal}=context;
 
+  //function for the open modal 
   const handleClick = () => {
     openModal()
   };
 
+  //handling bookmark when click
   const handleClickIsMarked = () => {
     setIsmarked(!isMarked);
   };
   return (
     <>
-      <div className=" w-[44rem] relative bottom-20  bg-white space-y-7 px-16  p-10 pt-0 rounded-lg ">
+      <div className=" w-auto  relative bottom-20  bg-white md:space-y-7 space-y-2 md:px-16  md:p-10 p-7 pt-0 rounded-lg ">
+        {/* the logo section */}
         <div className="w-full h-10 justify-center items-center flex relative  ">
           <img
             className="absolute bottom-4"
@@ -28,22 +31,27 @@ export default function MonitorRiserCard() {
             alt="mastercraft img"
           />
         </div>
-        <h1 className="text-2xl font-bold">Mastercraft Bamboo Monitor Riser</h1>
-        <p className="text-gray-400">
+        {/* the title of home main */}
+        <h1 className="md:text-2xl text-xl font-bold">Mastercraft Bamboo Monitor Riser</h1>
+        {/* the description */}
+        <p className="text-gray-400 md:text-lg text-sm">
           A beautiful & handcrafted monitor stand to reduce neck and eye strain.
         </p>
         <div className="flex flex-row justify-between">
+          {/* button for handling modal  */}
           <Button
             isHoverable={true}
             name=" Back this Project"
             onClick={handleClick}
-            className="px-7 py-3 text-ms font-semibold text-white bg-emeraldLight hover:bg-emeraldDark rounded-[2rem] flex justify-center items-center transition-colors duration-200  "
+            className="px-7 py-3 text-xs md:text-ms font-semibold text-white bg-emeraldLight hover:bg-emeraldDark rounded-[2rem] flex justify-center items-center transition-colors duration-200  "
           />
+
+          {/* book mark section  */}
           <AnimatedBookMark
             isMarked={isMarked}
             handleClickIsMarked={handleClickIsMarked}
           >
-            <span>{isMarked ? "BookMarked" : "BookMark"}</span>
+            <span className="md:flex hidden">{isMarked ? "BookMarked" : "BookMark"}</span>
           </AnimatedBookMark>
         </div>
       </div>

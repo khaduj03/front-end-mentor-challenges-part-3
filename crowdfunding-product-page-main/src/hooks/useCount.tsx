@@ -7,12 +7,14 @@ type MyContext = {
     backers: number;
     setBackers: React.Dispatch<React.SetStateAction<number>>; 
   };
-  
-export const Counter = createContext<MyContext | undefined>(undefined);
 
 interface CounterProps{
     children:React.ReactNode;
 }
+
+  
+export const Counter = createContext<MyContext | undefined>(undefined);
+
 
 const CounterProvider=({children}:CounterProps)=>{
     const INITIAL_TOTAL = 89914;

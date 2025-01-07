@@ -2,12 +2,10 @@ import React, { createContext, useState, useRef, useEffect } from "react";
 
 type MyContext = {
   isModalOpen: boolean;
-  defaultValue: string;
   selectedPledge: string | null;
   openModal: () => void;
   closeModal: () => void;
   handleOpen: (id: number) => void;
-  setDefaultValue: React.Dispatch<React.SetStateAction<string>>;
   setSelectedPledge: React.Dispatch<React.SetStateAction<string | null>>;
   pledgeRefs: React.MutableRefObject<HTMLDivElement[]>;
 };
@@ -20,7 +18,6 @@ interface ChildrenProps {
 
 const HandlerProvider: React.FC<ChildrenProps> = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [defaultValue, setDefaultValue] = useState<string>("");
   const [selectedPledge, setSelectedPledge] = useState<string | null>(null);
   const pledgeRefs = useRef<HTMLDivElement[]>([]);
 
@@ -46,18 +43,17 @@ const HandlerProvider: React.FC<ChildrenProps> = ({ children }) => {
   };
 
   const handleOpen = (id: number) => {
+    document.body.style.overflow = "hidden";
     setIsModalOpen(true);
     setSelectedPledge(id.toString());
   };
 
   const contextValue: MyContext = {
     isModalOpen,
-    defaultValue,
     selectedPledge,
     openModal,
     closeModal,
     handleOpen,
-    setDefaultValue,
     setSelectedPledge,
     pledgeRefs,
   };

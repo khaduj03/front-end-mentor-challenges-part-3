@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         background: "url('/images/image-hero-desktop.jpg')",
+        backgroundMobile:"url('/images/image-hero-mobile.jpg')",
       },
       colors:{
         emeraldLight:"#3cb4ac",

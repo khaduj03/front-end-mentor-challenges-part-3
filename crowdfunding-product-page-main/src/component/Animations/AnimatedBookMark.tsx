@@ -42,12 +42,13 @@ export default function AnimatedBookMark({
       variants={bookmarkVariants}
       whileHover={{ scale: 0.95 }}
       onClick={handleClickIsMarked}
-      className={`w-44 h-12 rounded-3xl flex flex-row justify-between items-center ${
-        isMarked ? "flex-row-reverse pl-9" : "flex-row pr-10"
+      className={`md:w-44 w-[3.3rem] h-12 rounded-3xl flex flex-row justify-between items-center ${
+        isMarked ? "flex-row-reverse md:pl-9" : "flex-row md:pr-10"
       }`}
       aria-label="Bookmark this item"
     >
       <motion.svg
+
         initial="unmarked"
         animate={isMarked ? "marked" : "unmarked"}
         variants={bookmarkVariantsIcon}
@@ -59,7 +60,7 @@ export default function AnimatedBookMark({
         <g fill="none" fill-rule="evenodd">
           <circle fill="#2F2F2F" cx="26" cy="26" r="24" />
           <path
-            fill={`${isMarked ? "#fff" : "#E5E7EB"}`}
+            fill={`${isMarked ? "#fff" : "#9CA3AF"}`}
             d="M23 19v18l5-5.058L33 37V19z"
           />
         </g>

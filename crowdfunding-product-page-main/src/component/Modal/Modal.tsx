@@ -10,8 +10,6 @@ import { useHandleModal } from "../../hooks/useHandleModal";
 
 
 const Modal = () => {
-
-
   const [value, setValue] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [isRewardded, setIsRewarded] = useState<boolean>(false);
@@ -78,10 +76,10 @@ const Modal = () => {
     <>
     {/* is rewarded is for handling modal after enrting a value to show the thankmodal */}
       {!isRewardded ? (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div className="fixed px-2  md:px-0 inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <AnimatePresence>
             {/* main modal */}
-            <AnimatedModal className="bg-white overflow-y-auto h-[30rem] flex items-start flex-col p-6 rounded-lg shadow-lg max-w-3xl w-full">
+            <AnimatedModal className="bg-white overflow-y-auto h-[30rem] mx-2 flex items-start flex-col p-3 md:p-6 rounded-lg shadow-lg max-w-3xl w-full">
               <button className="flex items-end" onClick={closeModal}>
                 <img src="/images/icon-close-modal.svg" alt="close icon" />
               </button>
@@ -93,6 +91,7 @@ const Modal = () => {
 
               {pledges &&
                 pledges.map((item, index) => (
+                  // the container div section
                   <div
                     key={index}
                     ref={(el) => (pledgeRefs.current[index] = el!)}
@@ -107,7 +106,8 @@ const Modal = () => {
                     }`}
                   >
                     <div className="flex flex-row items-start justify-between">
-                      <div className="flex items-center space-x-4">
+                      <div className="flex flex-row items-center md:items-center space-x-4">
+                        {/* radio button for  selection card */}
                         <input
                           type="radio"
                           id={`pledge-${item.id}`}
@@ -115,20 +115,19 @@ const Modal = () => {
                           name="pledge"
                           checked={selectedPledge === index.toString()}
                           onChange={handlePledgeChange}
-                          className="peer cursor-pointer w-5 h-5 appearance-none border border-gray-400 rounded-full 
-                      checked:bg-emeraldLight checked:border-emeraldLight
-                      disabled:bg-gray-300 disabled:cursor-not-allowed"
+                          className="peer cursor-pointer md:w-5 w-3 md:h-5 h-3 appearance-none border border-gray-400 rounded-full  checked:bg-emeraldLight checked:border-emeraldLight disabled:bg-gray-300 disabled:cursor-not-allowed"
                           disabled={
                             item.available !== null && item.available <= 0
                           }
                         />
-
+                        <div className="flex md:flex-row flex-col">
+                        {/*title  card section */}
                         <label
                           htmlFor={`pledge-${item.id}`}
-                          className={`font-semibold text-lg ${
+                          className={`font-semibold text-sm md:text-lg ${
                             selectedPledge === item.id.toString()
-                              ? "text-emeraldLight"
-                              : "text-gray-600"
+                              ? "text-emeraldLight "
+                              : "text-gray-600 hover:text-emeraldLight cursor-pointer"
                           } ${
                             item.available !== null && item.available <= 0
                               ? "text-gray-300"
@@ -137,9 +136,10 @@ const Modal = () => {
                         >
                           {item.title}
                         </label>
+                        {/* the Amount section in card */}
                         <span>
                           <p
-                            className={`font-semibold ${
+                            className={`font-semibold md:text-lg text-xs ${
                               item.available !== null && item.available <= 0
                                 ? "text-gray-300 "
                                 : " text-emeraldLight"
@@ -150,11 +150,14 @@ const Modal = () => {
                               : ""}
                           </p>
                         </span>
+                        </div>
                       </div>
+
+                      {/* the availble section of card  */}
                       <p className="text-gray-400 text-lg">
                         {" "}
                         <span
-                          className={`text-xl font-bold mr-3  ${
+                          className={`md:text-xl text-sm font-bold mr-3  ${
                             item.available !== null && item.available <= 0
                               ? "text-gray-400"
                               : " text-black"
@@ -165,8 +168,10 @@ const Modal = () => {
                         {item.available ? `left` : ""}{" "}
                       </p>
                     </div>
+
+                    {/* the description card */}
                     <p
-                      className={`mt-4  text-start pb-10  ${
+                      className={`mt-4 md:text-lg text-sm  text-start pb-10  ${
                         item.available !== null && item.available <= 0
                           ? "text-gray-300"
                           : " text-gray-600"
@@ -174,15 +179,19 @@ const Modal = () => {
                     >
                       {item.description}
                     </p>
-
+                    {/* if the user select a radio button so the Amount section open until user can enter value */}
                     {selectedPledge === item.id.toString() && (
                       <AnimatedPledges>
+
                         <label
                           htmlFor="pledge"
-                          className="flex justify-between items-center w-full text-gray-500"
+                          className="flex md:flex-row flex-col justify-between items-center w-full text-gray-500"
                         >
                           Enter your pledge
-                          <div className="flex flex-col">
+                          <div className="flex  justify-between md:py-0 py-2">
+                          <div className="flex flex-col ">
+
+                            {/* the user can enter a value for raward */}
                             <input
                               value={value}
                               placeholder={`${
@@ -193,16 +202,20 @@ const Modal = () => {
                               onChange={(e) => {
                                 setValue(e.target.value);
                               }}
-                              className={`p-5 h-12 w-60 outline-none border 0  rounded-3xl ${
+                              className={`md:p-5 p-3 h-12  md:w-60 w-24 md:mr-0 mr-4 outline-none border 0  rounded-3xl ${
                                 error ? "border-red-400" : "border-gray-400"
                               }`}
                               type="text"
                               id="pledge"
                             />
+
+                            {/* if the value wasn't vailed it show an error */}
                             <p className="text-red-300 text-xs">
                               {error ? error : ""}
                             </p>
                           </div>
+
+                          {/* button for contine  */}
                           <Button
                             isHoverable={
                              true
@@ -211,6 +224,7 @@ const Modal = () => {
                             name=" Continue"
                             className="px-8 py-3 text-ms font-semibold text-white bg-emeraldLight hover:bg-emeraldDark rounded-[2rem] flex justify-center items-center transition-colors duration-200  "
                           />
+                          </div>
                         </label>
                       </AnimatedPledges>
                     )}
@@ -220,6 +234,7 @@ const Modal = () => {
           </AnimatePresence>
         </div>
       ) : (
+        // a modal for thanks user after rewarded
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <AnimatePresence>
             <ThankModal close={handleClose} />
