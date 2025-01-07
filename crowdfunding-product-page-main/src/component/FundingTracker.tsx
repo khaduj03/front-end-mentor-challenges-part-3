@@ -16,7 +16,7 @@ export default function FundingTracker() {
   const widthPercentage = (total / maxTotal) * 100;
 
   return (
-    <section className=" lg:w-[44rem] w-full  md:space-y-10 relative bottom-20 flex flex-col  bg-white md:px-16  p-10  rounded-lg">
+    <section className=" lg:w-[43rem] w-full  md:space-y-10 relative bottom-20 flex flex-col  bg-white md:px-16  p-10  rounded-lg">
       <div className="md:flex-row flex flex-col">
         <div className="border-gray-300 md:border-r md:border-b-0 border-b md:px-10 md:py-0 py-5">
           <h2 className="text-4xl font-bold">${total.toLocaleString()}</h2>

@@ -22,7 +22,7 @@ export default function MonitorRiserCard() {
   };
   return (
     <>
-      <div className=" w-auto  relative bottom-20  bg-white md:space-y-7 space-y-2 md:px-16  md:p-10 p-7 pt-0 rounded-lg ">
+      <div className=" md:w-[43rem] w-auto  relative bottom-20  bg-white md:space-y-7 space-y-2 md:px-16  md:p-10 p-7 pt-0 rounded-lg ">
         {/* the logo section */}
         <div className="w-full h-10 justify-center items-center flex relative  ">
           <img
@@ -43,7 +43,7 @@ export default function MonitorRiserCard() {
             isHoverable={true}
             name=" Back this Project"
             onClick={handleClick}
-            className="px-7 py-3 text-xs md:text-ms font-semibold text-white bg-emeraldLight hover:bg-emeraldDark rounded-[2rem] flex justify-center items-center transition-colors duration-200  "
+            className="px-7 py-3 md:px-10 text-xs md:text-sm font-semibold text-white bg-emeraldLight hover:bg-emeraldDark rounded-[2rem] flex justify-center items-center transition-colors duration-200  "
           />
 
           {/* book mark section  */}
